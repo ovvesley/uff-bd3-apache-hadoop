@@ -20,7 +20,7 @@ public class ContaBigrama {
 
         System.out.println("---- STARTER CONTA BIGRAMA ----");
 
-        String paramNgram = args[0];
+        String paramNgram = "2"; // valor padrão para a entrega da atividade 4.
         String paramContagemMinima = args[1];
         String paramInputPath = args[2];
         String paramOutputDir = args[3];
