@@ -22,7 +22,8 @@ public class ContaBigrama {
  
     public static void main(String[] args) throws IOException,
             InterruptedException, ClassNotFoundException {
- 
+
+        System.out.println("---- STARTER CONTA BIGRAMA ---");
         // Captura o parâmetros passados após o nome da Classe driver.
         Path inputPath = new Path(args[0]);
         Path outputDir = new Path(args[1]);
