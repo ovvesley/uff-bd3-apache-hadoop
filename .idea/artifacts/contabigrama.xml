@@ -2,7 +2,7 @@
   <artifact type="jar" build-on-make="true" name="contabigrama">
     <output-path>$PROJECT_DIR$/buildjar/artifacts/contabigrama</output-path>
     <root id="archive" name="contabigrama.jar">
-      <element id="module-output" name="ContaPalavra" />
+      <element id="module-output" name="ContaBigrama" />
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
