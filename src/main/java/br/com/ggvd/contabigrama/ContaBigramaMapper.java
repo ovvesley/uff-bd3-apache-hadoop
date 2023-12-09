@@ -41,11 +41,11 @@ public class ContaBigramaMapper extends
         String line = value.toString();
         StringTokenizer st = new StringTokenizer(line, " ");
 
-        String lastPalavra = st.nextToken();
-
         if (!st.hasMoreTokens()) {
             return;
         }
+
+        String lastPalavra = st.nextToken();
 
         if (st.countTokens() < nGram + 1) {
             return;
