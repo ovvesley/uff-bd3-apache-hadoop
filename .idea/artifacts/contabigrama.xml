@@ -1,0 +1,6 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="contabigrama">
+    <output-path>$PROJECT_DIR$/buildjar/artifacts/contabigrama</output-path>
+    <root id="archive" name="contabigrama.jar" />
+  </artifact>
+</component>
