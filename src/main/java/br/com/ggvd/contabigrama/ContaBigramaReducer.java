@@ -32,7 +32,11 @@ public class ContaBigramaReducer extends
         for (IntWritable value : values) {
             sum += value.get();
         }
-        
+
+        if (sum < Integer.parseInt(nContagemMinima)) {
+            return;
+        }
+
         context.write(text, new IntWritable(sum));
     }
 }
