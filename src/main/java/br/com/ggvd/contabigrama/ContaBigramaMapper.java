@@ -18,17 +18,46 @@ public class ContaBigramaMapper extends
         Mapper<Object, Text, Text, IntWritable> {
 
     private final IntWritable ONE = new IntWritable(1);
-    private final Text word = new Text();
+
+    private final Text bigrama = new Text();
 
     @Override
     public void map(Object key, Text value, Context context)
             throws IOException, InterruptedException {
 
+
+        // get conf
+        String nGramParam = context.getConfiguration().get("ngram");
+        String nContagemMinima = context.getConfiguration().get("contagem_minima");
+
+        System.out.println("------ Mapper ------");
+        System.out.println("nGramParam: " + nGramParam);
+        System.out.println("nContagemMinima: " + nContagemMinima);
+        System.out.println("--------------------");
+
+        int nGram = Integer.parseInt(nGramParam);
+        int contagemMinima = Integer.parseInt(nContagemMinima);
+
         String line = value.toString();
         StringTokenizer st = new StringTokenizer(line, " ");
-        while (st.hasMoreTokens()) {
-            word.set(st.nextToken());
-            context.write(word, ONE);
+
+        String lastPalavra = st.nextToken();
+
+        if (!st.hasMoreTokens()) {
+            return;
         }
+
+        if (st.countTokens() < nGram + 1) {
+            return;
+        }
+
+        while (st.hasMoreTokens()) {
+            String nextPalavra = st.nextToken();
+            String myBigrama = lastPalavra + " " + nextPalavra;
+            bigrama.set(myBigrama);
+            context.write(bigrama, ONE);
+            lastPalavra = nextPalavra;
+        }
+
     }
 }

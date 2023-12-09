@@ -20,40 +20,45 @@ public class ContaBigrama {
 
         System.out.println("---- STARTER CONTA BIGRAMA ----");
 
-        // Captura o parâmetros passados após o nome da Classe driver.
-        Path inputPath = new Path(args[0]);
-        Path outputDir = new Path(args[1]);
+        String paramNgram = args[0];
+        String paramContagemMinima = args[1];
+        String paramInputPath = args[2];
+        String paramOutputDir = args[3];
 
-        // Criar uma configuração
+        System.out.println("ngram: " + paramNgram);
+        System.out.println("contagem_minima: " + paramContagemMinima);
+        System.out.println("inputPath: " + paramInputPath);
+        System.out.println("outputDir: " + paramOutputDir);
+
+
         Configuration conf = new Configuration(true);
+        conf.set("ngram", paramNgram);
+        conf.set("contagem_minima", paramContagemMinima);
 
-        // Criar o job
-        Job job = new Job(conf, "ContaPalavras");
+        Job job = new Job(conf, "ContaBigrama");
         job.setJarByClass(ContaBigrama.class);
 
-        // Definir classes para Map e Reduce
         job.setMapperClass(ContaBigramaMapper.class);
         job.setReducerClass(ContaBigramaReducer.class);
         job.setNumReduceTasks(1);
 
-        // Definir as chaves e valor
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
 
-        // Entradas
+        Path inputPath = new Path(paramInputPath);
+        Path outputDir = new Path(paramOutputDir);
         FileInputFormat.addInputPath(job, inputPath);
         job.setInputFormatClass(TextInputFormat.class);
 
-        // Saidas
+
         FileOutputFormat.setOutputPath(job, outputDir);
         job.setOutputFormatClass(TextOutputFormat.class);
 
-        // EXcluir saida se existir
         FileSystem hdfs = FileSystem.get(conf);
         if (hdfs.exists(outputDir))
             hdfs.delete(outputDir, true);
 
-        // Executa job
+
         int code = job.waitForCompletion(true) ? 0 : 1;
         System.exit(code);
 
