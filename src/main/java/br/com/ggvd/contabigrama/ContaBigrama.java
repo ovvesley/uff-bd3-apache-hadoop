@@ -48,9 +48,10 @@ public class ContaBigrama {
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println("--------------------STARTER CONTABIGRAMA---------------------");
+        System.out.println("--------------------STARTER CONTA BIGRAMA1---------------------");
 
         Configuration conf = new Configuration();
+        conf.addResource(new Path("/usr/local/hadoop-3.3.5/etc/hadoop/core-site.xml"));
         Job job = Job.getInstance(conf, "word count");
         job.setJarByClass(ContaBigrama.class);
         job.setMapperClass(TokenizerMapper.class);
